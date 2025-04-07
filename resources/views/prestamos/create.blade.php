@@ -19,7 +19,9 @@
                 <select name="usuario_id" id="usuario_id" class="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required>
                     <option value="">Seleccione un usuario</option>
                     @foreach($usuarios as $usuario)
-                        <option value="{{ $usuario->id }}">{{ $usuario->nombre }} {{ $usuario->apellido_paterno }}</option>
+                        <option value="{{ $usuario->usuario_id }}" {{ old('usuario_id') == $usuario->usuario_id ? 'selected' : '' }}>
+                            {{ $usuario->nombre }} {{ $usuario->apellido_paterno }}
+                        </option>
                     @endforeach
                 </select>
             </div>
@@ -27,29 +29,13 @@
             <!-- Fecha de Préstamo -->
             <div class="flex flex-col mb-4">
                 <label for="fecha_prestamo" class="text-sm font-medium text-white mb-2">Fecha de Préstamo</label>
-                <input type="date" name="fecha_prestamo" id="fecha_prestamo" class="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                <input type="date" name="fecha_prestamo" id="fecha_prestamo" class="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" value="{{ old('fecha_prestamo') }}" required>
             </div>
 
             <!-- Fecha de Devolución -->
             <div class="flex flex-col mb-4">
                 <label for="fecha_devolucion" class="text-sm font-medium text-white mb-2">Fecha de Devolución</label>
-                <input type="date" name="fecha_devolucion" id="fecha_devolucion" class="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required>
-            </div>
-
-            <!-- Observaciones -->
-            <div class="flex flex-col mb-4">
-                <label for="observaciones" class="text-sm font-medium text-white mb-2">Observaciones</label>
-                <textarea name="observaciones" id="observaciones" class="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" rows="4"></textarea>
-            </div>
-
-            <!-- Método de Entrega -->
-            <div class="flex flex-col mb-4">
-                <label for="metodo_entrega" class="text-sm font-medium text-white mb-2">Método de Entrega</label>
-                <select name="metodo_entrega" id="metodo_entrega" class="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" required>
-                    <option value="">Seleccione un método de entrega</option>
-                    <option value="recogida">Recogida en tienda</option>
-                    <option value="envio">Envío a domicilio</option>
-                </select>
+                <input type="date" name="fecha_devolucion" id="fecha_devolucion" class="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" value="{{ old('fecha_devolucion') }}" required>
             </div>
 
             <!-- Tabla de Libros y Ejemplares -->
@@ -60,7 +46,6 @@
                             <th class="px-4 py-3 text-left">ID</th>
                             <th class="px-4 py-3 text-left">Libro</th>
                             <th class="px-4 py-3 text-left">Ejemplares Disponibles</th>
-                            <th class="px-4 py-3 text-center">Acción</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-700">
@@ -72,28 +57,27 @@
                                     @if($libro->ejemplares->isEmpty())
                                         <span class="text-red-500">Sin ejemplares disponibles</span>
                                     @else
-                                        <span class="text-green-500">Con ejemplares disponibles</span>
-                                        <select name="ejemplar_id" class="w-full p-2 mt-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                            <option value="">Seleccione un ejemplar</option>
-                                            @foreach($libro->ejemplares as $ejemplar)
-                                                <option value="{{ $ejemplar->id }}">{{ $ejemplar->codigo_inventario }}</option>
-                                            @endforeach
-                                        </select>
-                                    @endif
-                                </td>
-                                <td class="px-4 py-3 text-center">
-                                    @if($libro->ejemplares->isEmpty())
-                                        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded" disabled>Sin ejemplares</button>
-                                    @else
-                                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
-                                            Registrar Préstamo
-                                        </button>
+                                    <select name="ejemplar_id_{{ $libro->id }}" class="w-full p-2 mt-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        <option value="">Seleccione un ejemplar</option>
+                                        @foreach($libro->ejemplares as $ejemplar)
+                                            <option value="{{ $ejemplar->ejemplar_id }}" {{ old('ejemplar_id_' . $libro->id) == $ejemplar->ejemplar_id ? 'selected' : '' }}>
+                                                {{ $ejemplar->codigo_inventario }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     @endif
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Botón de Envío del Formulario -->
+            <div class="flex justify-end mt-6">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md">
+                    Registrar Préstamo
+                </button>
             </div>
         </div>
     </form>

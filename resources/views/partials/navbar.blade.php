@@ -6,8 +6,8 @@
         <ul class="hidden md:flex space-x-6 text-lg">
             <li><a href="{{ url('/') }}" class="hover:text-purple-400 transition duration-300">Inicio</a></li>
             <li><a href="#busqueda" class="hover:text-purple-400 transition duration-300">Búsqueda</a></li>
-            <li><a href="{{ url('/ConsultarLibro') }}" class="hover:text-purple-400 transition duration-300">Lista Libros</a></li>
-            <li><a href="{{ url('/ConsultarUsuario') }}" class="hover:text-purple-400 transition duration-300">Lista Usuarios</a></li>
+            <li><a href="{{ url('/libros') }}" class="hover:text-purple-400 transition duration-300">Lista Libros</a></li>
+            <li><a href="{{ url('/usuarios') }}" class="hover:text-purple-400 transition duration-300">Lista Usuarios</a></li>
 
             @if (Auth::check())
                 <li class="relative">

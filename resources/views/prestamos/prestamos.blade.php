@@ -26,9 +26,9 @@
             <tbody class="divide-y divide-gray-700">
                 @forelse($prestamos as $prestamo)
                 <tr class="hover:bg-gray-700">
-                    <td class="px-4 py-3">{{ $prestamo->prestamo_id }}</td>
+                    <td class="px-4 py-3">{{ $prestamo->prestamo_id }}</td> <!-- Aquí se cambió prestamo_id por id -->
                     <td class="px-4 py-3">{{ $prestamo->usuario->nombre }} {{ $prestamo->usuario->apellido_paterno }}</td>
-                    <td class="px-4 py-3">{{ $prestamo->ejemplar->libro->titulo }}</td>
+                    <td class="px-4 py-3">{{ $prestamo->ejemplar->libro->titulo ?? 'Libro no disponible' }}</td>
                     <td class="px-4 py-3">{{ $prestamo->fecha_prestamo }}</td>
                     <td class="px-4 py-3">{{ $prestamo->fecha_devolucion ?? 'Pendiente' }}</td>
                     <td class="px-4 py-3">{{ $prestamo->estado }}</td>

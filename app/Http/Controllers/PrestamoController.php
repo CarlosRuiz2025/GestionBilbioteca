@@ -7,6 +7,7 @@ use App\Models\Ejemplar;
 use App\Models\Usuario;
 use App\Models\Libro;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class PrestamoController extends Controller
 {
@@ -28,30 +29,28 @@ class PrestamoController extends Controller
         return view('prestamos.create', compact('libros', 'usuarios'));
     }
 
-    // Guarda un nuevo préstamo en la base de datos
+    // Método para guardar un préstamo
     public function store(Request $request)
     {
-        // Validación de los datos
-        $validated = $request->validate([
+        // Validación
+        $request->validate([
             'usuario_id' => 'required|exists:usuarios,usuario_id',
             'ejemplar_id' => 'required|exists:ejemplares,ejemplar_id',
             'fecha_prestamo' => 'required|date',
-            'fecha_devolucion' => 'required|date',
-            'estado' => 'required|in:Activo,Devuelto,Retrasado',
-            'metodo_entrega' => 'required|in:Presencial,Domicilio',
-            'multa_aplicada' => 'nullable|numeric|min:0',
-            'observaciones' => 'nullable|string',
+            'fecha_devolucion' => 'required|date|after:fecha_prestamo',
         ]);
 
-        // Guardar el nuevo préstamo
-        $prestamo = Prestamo::create($validated);
+        // Crear el préstamo
+        $prestamo = new Prestamo();
+        $prestamo->usuario_id = $request->usuario_id;
+        $prestamo->ejemplar_id = $request->ejemplar_id;
+        $prestamo->fecha_prestamo = $request->fecha_prestamo;
+        $prestamo->fecha_devolucion = $request->fecha_devolucion;
+        $prestamo->estado = 'activo'; // Por ejemplo, dependiendo de cómo manejes el estado
+        $prestamo->save();
 
-        // Cambiar el estado del ejemplar a 'Prestado'
-        $ejemplar = Ejemplar::findOrFail($request->input('ejemplar_id'));
-        $ejemplar->estado = 'Prestado';
-        $ejemplar->save();
-
-        return redirect()->route('prestamos.index')->with('success', 'Préstamo creado exitosamente.');
+        // Redirigir con mensaje de éxito
+        return redirect()->route('prestamos.create')->with('success', 'Préstamo registrado exitosamente');
     }
 
     // Muestra el formulario de edición de un préstamo
