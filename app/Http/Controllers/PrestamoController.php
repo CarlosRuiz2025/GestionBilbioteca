@@ -46,7 +46,7 @@ class PrestamoController extends Controller
         $prestamo->ejemplar_id = $request->ejemplar_id;
         $prestamo->fecha_prestamo = $request->fecha_prestamo;
         $prestamo->fecha_devolucion = $request->fecha_devolucion;
-        $prestamo->estado = 'activo'; // Por ejemplo, dependiendo de cómo manejes el estado
+        $prestamo->estado = 'Activo';
         $prestamo->save();
 
         // Redirigir con mensaje de éxito

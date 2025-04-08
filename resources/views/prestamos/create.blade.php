@@ -57,14 +57,14 @@
                                     @if($libro->ejemplares->isEmpty())
                                         <span class="text-red-500">Sin ejemplares disponibles</span>
                                     @else
-                                    <select name="ejemplar_id_{{ $libro->id }}" class="w-full p-2 mt-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                        <option value="">Seleccione un ejemplar</option>
-                                        @foreach($libro->ejemplares as $ejemplar)
-                                            <option value="{{ $ejemplar->ejemplar_id }}" {{ old('ejemplar_id_' . $libro->id) == $ejemplar->ejemplar_id ? 'selected' : '' }}>
-                                                {{ $ejemplar->codigo_inventario }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                        <select name="ejemplar_id" class="w-full p-2 mt-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                            <option value="">Seleccione un ejemplar</option>
+                                            @foreach($libro->ejemplares as $ejemplar)
+                                                <option value="{{ $ejemplar->ejemplar_id }}" {{ old('ejemplar_id') == $ejemplar->ejemplar_id ? 'selected' : '' }}>
+                                                    {{ $ejemplar->codigo_inventario }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     @endif
                                 </td>
                             </tr>
@@ -82,4 +82,23 @@
         </div>
     </form>
 </div>
+
+{{-- Script para desactivar otros selects al seleccionar un ejemplar --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const selects = document.querySelectorAll('select[name="ejemplar_id"]');
+
+        selects.forEach(select => {
+            select.addEventListener('change', function () {
+                if (this.value) {
+                    selects.forEach(s => {
+                        if (s !== this) s.disabled = true;
+                    });
+                } else {
+                    selects.forEach(s => s.disabled = false);
+                }
+            });
+        });
+    });
+</script>
 @endsection
