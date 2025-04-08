@@ -7,6 +7,8 @@ use App\Http\Controllers\BusquedaController;
 use App\Http\Controllers\LibroController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PrestamoController;
+use App\Http\Controllers\EventoController;
+use App\Http\Controllers\AutorController;
 
 // Ruta para archivos CSS estáticos
 Route::get('/css/{file}', function ($file) {
@@ -79,3 +81,7 @@ Route::get('/prestamos/{prestamo}',          [PrestamoController::class, 'show']
 Route::get('/prestamos/{prestamo}/edit',     [PrestamoController::class, 'edit'])->name('prestamos.edit');
 Route::put('/prestamos/{prestamo}',          [PrestamoController::class, 'update'])->name('prestamos.update');
 Route::delete('/prestamos/{prestamo}',       [PrestamoController::class, 'destroy'])->name('prestamos.destroy');
+
+Route::get('/eventos', [EventoController::class, 'index'])->name('eventos.index');
+
+Route::get('/autores', [AutorController::class, 'index'])->name('autores.index');
