@@ -69,7 +69,7 @@ El Sistema de Gestión para una Biblioteca  es una aplicación diseñada para op
 5. Crear conexion a la base de datos 
    - crear un file (arhivo) .env donde iran las bases para la conexion a la BD
    - Copiar y pegar lo del archivo .env.example
-   - Editar con los datos de la BD
+6. Ejemplo de la conexión de la BD
    ```bash
     DB_CONNECTION=pgsql
     DB_HOST=127.0.0.1
