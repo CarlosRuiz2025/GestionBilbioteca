@@ -50,18 +50,34 @@ El Sistema de Gestión para una Biblioteca  es una aplicación diseñada para op
 2. Abrir el proyecto en Visual Studio Code:
    - Abrir Visual Studio Code.
    - Ir a **File (Archivo) → Open Folder (Abrir Carpeta)**.
-   - Seleccionar "gestion-biblioteca".
+   - Seleccionar "GestionBiblioteca".
    - Finalizar.
 
 3. Instalar dependencia del composer 
    - Abre la terminal cmd o powershel directo desde el visual code 
-   - Instala la dependencia: 
+   - Instala las siguientes dependencia: 
     ```bash
     composer install
     ```
-4. Crear conexion al a base de datos 
+    ```bash
+    npm install
+    ```
+4. Generar Key
+    ```bash
+    php artisan key:generate
+    ```
+5. Crear conexion a la base de datos 
    - crear un file (arhivo) .env donde iran las bases para la conexion a la BD
-   - Guiarte del .env.example
+   - Copiar y pegar lo del archivo .env.example
+   - Editar con los datos de la BD
+   ```bash
+    DB_CONNECTION=pgsql
+    DB_HOST=127.0.0.1
+    DB_PORT=5432
+    DB_DATABASE=BdBiblioteca
+    DB_USERNAME=postgres
+    DB_PASSWORD=Dariagmna3000@
+    ```
      
 ## Configuración de la Base de Datos
 1. Asegurarse de que PostgreSQL esté en ejecución.
