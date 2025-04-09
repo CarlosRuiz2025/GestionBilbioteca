@@ -84,10 +84,13 @@ El Sistema de Gestión para una Biblioteca  es una aplicación diseñada para op
 2. Crear la base de datos si no está creada, ejecutando el script SQL proporcionado.
 
 ## Ejecutar la Aplicación
-Para iniciar el servidor, ejecutar el siguiente comando en la terminal:
+Para iniciar el servidor, ejecutar los siguientes comandos en una terminal cada una:
+```bash
+npm run dev
+```
 ```bash
 php artisan serve
 ```
 
 ---
-***Proyecto en desarrollo  con entusiasmo y dedicación. 🚀📚***
+***Proyecto en desarrollo con entusiasmo y dedicación. 🚀📚***
